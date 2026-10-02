@@ -1,0 +1,4 @@
+interface:
+  display_name: "Analytics Orchestrator"
+  short_description: "Choose workspace and route business analytics"
+  default_prompt: "Use $analytics-orchestrator to select my workspace and answer a business analytics question."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Finance Analytics"
+  short_description: "Analyze statements, profit and budget variance"
+  default_prompt: "Use $finance-analytics to compare actual financial performance with budget in my chosen workspace."

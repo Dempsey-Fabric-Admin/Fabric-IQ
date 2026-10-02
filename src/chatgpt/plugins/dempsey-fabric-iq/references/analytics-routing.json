@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "workspaceSelection": {
+    "mode": "discover-artifact-workspaces",
+    "promptOnFirstAnalyticsRequest": true,
+    "scopeLifetime": "current-conversation",
+    "maxResultsPerSearch": 50,
+    "initialSearchTerms": [
+      "Sales",
+      "Finance"
+    ],
+    "exhaustive": false
+  },
+  "domains": [
+    {
+      "name": "sales",
+      "skill": "sales-analytics",
+      "skillPath": "../skills/sales-analytics/SKILL.md",
+      "discoveryTerms": [
+        "Sales",
+        "Sales Analytics"
+      ],
+      "intents": [
+        "sales revenue",
+        "sales versus targets",
+        "customers",
+        "products",
+        "sales orders",
+        "returns",
+        "delivery performance"
+      ]
+    },
+    {
+      "name": "finance",
+      "skill": "finance-analytics",
+      "skillPath": "../skills/finance-analytics/SKILL.md",
+      "discoveryTerms": [
+        "Finance",
+        "Income Statement",
+        "Balance Sheet"
+      ],
+      "intents": [
+        "financial statements",
+        "actual versus budget",
+        "profit",
+        "expenses",
+        "assets",
+        "liabilities",
+        "receivables",
+        "payables",
+        "cash flow"
+      ]
+    }
+  ],
+  "fallback": {
+    "skill": "fabriciq",
+    "skillPath": "../skills/fabriciq/SKILL.md"
+  }
+}

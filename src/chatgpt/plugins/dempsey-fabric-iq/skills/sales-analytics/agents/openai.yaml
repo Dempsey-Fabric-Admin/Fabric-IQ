@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sales Analytics"
+  short_description: "Analyze sales, orders and performance targets"
+  default_prompt: "Use $sales-analytics to compare monthly sales revenue with targets in my chosen workspace."
