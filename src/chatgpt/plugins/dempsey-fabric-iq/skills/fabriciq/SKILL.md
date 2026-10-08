@@ -74,8 +74,9 @@ choose. Reuse an established focus for follow-ups; reopen on a workspace switch.
 Do not use workspace choices remembered from other conversations.
 
 Read [analytics orchestration](../analytics-orchestrator/SKILL.md) when domain
-routing is unresolved. Read [Sales](../sales-analytics/SKILL.md) or
-[Finance](../finance-analytics/SKILL.md) for the corresponding business question;
+routing is unresolved. Read [Finance](../finance-analytics/SKILL.md),
+[Warehouse Operations](../warehouse-operations-analytics/SKILL.md) or
+[Retail Operations](../retail-operations-analytics/SKILL.md) for the corresponding business question;
 when a domain skill already routed here, proceed without recursive routing.
 
 Use selected source definitions and the user's requested scope. On error recovery,

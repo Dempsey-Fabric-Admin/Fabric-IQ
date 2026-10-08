@@ -58,7 +58,7 @@ Use actual returned artifacts only:
   in Git or share a candidate list between users.
 
 Suggested first reply:
-"I found these workspaces through Sales and Finance content accessible with your
+"I found these workspaces through Finance, Warehouse Operations and Retail Operations content accessible with your
 connected account. Which workspace should I use for this chat?"
 Follow with a numbered table: Workspace | Example reports/models.
 Then: "This is a search-based list and may be incomplete. You can also give me a

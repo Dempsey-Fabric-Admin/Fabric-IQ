@@ -1,5 +1,10 @@
 # Finance measurement rules
 
+Finance covers Microsoft Business Central finance-related facts and dimensions,
+including typical sales analytics. For orders, returns, targets and customer/product
+analysis also read [sales measurement rules](sales-measurement-rules.md). Verify
+the actual model schema; do not assume Business Central table names or coverage.
+
 ## Source precedence and metric definitions
 
 Honor explicit user scope, matched verified answers, model CustomInstructions and

@@ -1,6 +1,6 @@
 ---
 name: analytics-orchestrator
-description: "Route live business analytics questions through workspace selection and the Sales, Finance or general Fabric IQ workflow. Use for the first analytics request in a chat, workspace changes, ambiguous domains and questions spanning Sales and Finance. Do not use for general explanations, plugin setup or repository editing."
+description: "Route live business analytics questions through workspace selection and the Finance, Warehouse Operations, Retail Operations or general Fabric IQ workflow. Use for the first analytics request in a chat, workspace changes, ambiguous domains and questions spanning these domains. Do not use for general explanations, plugin setup or repository editing."
 ---
 
 # Analytics orchestration
@@ -17,7 +17,8 @@ separate hosted agents or endpoints.
   reusing or changing the user's focus.
 - Read [routing configuration](../../references/analytics-routing.json) to select
   domain skills and discovery terms.
-- Read [Sales analytics](../sales-analytics/SKILL.md) for Sales questions.
+- Read [Warehouse Operations](../warehouse-operations-analytics/SKILL.md) for Manhattan SCALE questions.
+- Read [Retail Operations](../retail-operations-analytics/SKILL.md) for RMS questions.
 - Read [Finance analytics](../finance-analytics/SKILL.md) for Finance questions.
 - Read [Fabric IQ](../fabriciq/SKILL.md) in full before metadata or query work.
 
@@ -29,16 +30,21 @@ separate hosted agents or endpoints.
    workspace gate before generating any data answer. Do not answer the question
    while awaiting the user's scope choice.
 3. After selection, route by the question's meaning, not merely keywords:
-   - Sales: sales amounts, orders, products, customers, returns, sales targets,
-     delivery performance and sales growth.
-   - Finance: financial statements, accounting revenue, profit, expenses, budget,
-     assets, liabilities, cash flow and receivables/payables.
-   - Cross-domain: explicitly needs both sets of metrics, such as sales growth
-     alongside operating profit.
-   - Unclear: ask one focused question, e.g. sales performance or accounting revenue.
-     Combine this with the workspace question when possible.
-   - Another business domain: use general Fabric IQ if a supported, selected
-     report/model can answer; do not force it into Sales or Finance.
+   - Finance: Microsoft Business Central finance-related facts and dimensions,
+     including typical sales analytics, orders, customers, returns and targets as
+     well as statements, profit, budget, balances and receivables/payables.
+   - Warehouse Operations: Manhattan SCALE warehouse inventory, replenishment,
+     receiving/inbound, putaway and outbound picking.
+   - Retail Operations: RMS-derived facts and dimensions for retail processes.
+     Inspect the model to establish which processes and metrics are available.
+   - Cross-domain: requires more than one of these sources/processes, such as
+     Business Central sales alongside SCALE picking or RMS store performance.
+     Sales growth and accounting profit alone can both belong to Finance.
+   - Ambiguous sales or inventory: use the user's source/process and selected
+     artifact context. Typical sales defaults to Finance; explicit RMS/store
+     analytics belongs to Retail Operations. Warehouse execution belongs to
+     Warehouse Operations. Ask a focused question if material ambiguity remains.
+   - Another domain: use general Fabric IQ when the selected source supports it.
 4. Read the matching domain skill. The domain skill reuses this established
    context and proceeds to Fabric IQ; do not recursively restart routing.
 5. Select a relevant artifact in the chosen workspace. A workspace choice does
@@ -53,14 +59,16 @@ separate hosted agents or endpoints.
 
 ## Cross-domain work
 
-Apply both domain skills within the selected workspace(s). Each ExecuteQuery
+Apply all relevant domain skills within the selected workspace(s). Each ExecuteQuery
 call targets one semantic model. Do not invent a cross-model join or pass multiple
 model IDs to a single call.
 
 Align the period boundaries, company/entity scope, calendar, currency, units,
 grain and metric definitions before comparing results. If the models disagree,
 show separate source results and explain the difference; do not silently reconcile.
-Do not add revenue from Sales to revenue from Finance as if they were disjoint.
+Do not add Business Central and RMS sales as if they were disjoint. Validate
+entity/product mappings and process stages before comparing SCALE quantities
+with Finance or Retail results; matching labels alone do not establish shared keys.
 Do not infer causality from coincident changes.
 
 Only analyze multiple workspaces when the user explicitly chooses that scope.

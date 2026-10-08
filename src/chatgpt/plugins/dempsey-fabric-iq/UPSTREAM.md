@@ -26,4 +26,4 @@ skills/fabriciq/SKILL.md retains the pinned upstream body with one added "Dempse
 Its relative links point to the bundled skills and shared references.
 Reapply this insertion deliberately when updating the upstream skill; do not silently overwrite the integration gate.
 
-analytics-orchestrator, sales-analytics and finance-analytics and their references are workflow additions adapted from the original Fluid integration. Their generic business rules must be checked against each selected model's actual definitions. No hidden Fabric Data Agent instructions or fixed workspace/model assignments have been imported.
+analytics-orchestrator and finance-analytics retain workflow guidance adapted from the original Fluid integration. Finance now includes Business Central sales guidance. warehouse-operations-analytics and retail-operations-analytics add Manhattan SCALE and RMS domain workflows. These skills and their references are local integration additions. Their generic business rules must be checked against each selected model's actual definitions. No hidden Fabric Data Agent instructions or fixed workspace/model assignments have been imported.

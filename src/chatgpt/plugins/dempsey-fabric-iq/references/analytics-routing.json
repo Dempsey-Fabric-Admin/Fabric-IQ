@@ -6,49 +6,83 @@
     "scopeLifetime": "current-conversation",
     "maxResultsPerSearch": 50,
     "initialSearchTerms": [
-      "Sales",
-      "Finance"
+      "Finance",
+      "Warehouse",
+      "Retail"
     ],
     "exhaustive": false
   },
   "domains": [
     {
-      "name": "sales",
-      "skill": "sales-analytics",
-      "skillPath": "../skills/sales-analytics/SKILL.md",
-      "discoveryTerms": [
-        "Sales",
-        "Sales Analytics"
-      ],
-      "intents": [
-        "sales revenue",
-        "sales versus targets",
-        "customers",
-        "products",
-        "sales orders",
-        "returns",
-        "delivery performance"
-      ]
-    },
-    {
       "name": "finance",
+      "displayName": "Finance",
+      "sourceSystem": "Microsoft Business Central",
       "skill": "finance-analytics",
       "skillPath": "../skills/finance-analytics/SKILL.md",
       "discoveryTerms": [
         "Finance",
+        "Business Central",
+        "Sales",
         "Income Statement",
         "Balance Sheet"
       ],
       "intents": [
         "financial statements",
-        "actual versus budget",
+        "sales revenue",
+        "sales orders",
+        "customers",
+        "returns",
+        "sales targets",
         "profit",
         "expenses",
-        "assets",
-        "liabilities",
+        "budget",
         "receivables",
         "payables",
         "cash flow"
+      ]
+    },
+    {
+      "name": "warehouse-operations",
+      "displayName": "Warehouse Operations",
+      "sourceSystem": "Manhattan SCALE",
+      "skill": "warehouse-operations-analytics",
+      "skillPath": "../skills/warehouse-operations-analytics/SKILL.md",
+      "discoveryTerms": [
+        "Warehouse",
+        "Manhattan SCALE",
+        "Inventory",
+        "Replenishment",
+        "Receiving",
+        "Putaway",
+        "Picking"
+      ],
+      "intents": [
+        "warehouse inventory",
+        "replenishment",
+        "receiving",
+        "inbound",
+        "putaway",
+        "outbound",
+        "picking",
+        "warehouse throughput"
+      ]
+    },
+    {
+      "name": "retail-operations",
+      "displayName": "Retail Operations",
+      "sourceSystem": "RMS",
+      "skill": "retail-operations-analytics",
+      "skillPath": "../skills/retail-operations-analytics/SKILL.md",
+      "discoveryTerms": [
+        "Retail",
+        "RMS"
+      ],
+      "intents": [
+        "retail operations",
+        "RMS",
+        "store sales",
+        "retail returns",
+        "store inventory"
       ]
     }
   ],

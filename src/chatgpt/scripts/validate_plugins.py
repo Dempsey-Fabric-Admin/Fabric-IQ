@@ -72,8 +72,19 @@ def validate(plugin):
         isinstance(term, str) and term.strip() and term != "*"
         for term in selection["initialSearchTerms"]
     )
-    assert {"analytics-orchestrator", "sales-analytics", "finance-analytics", "fabriciq"} <= skills.keys()
+    assert {"analytics-orchestrator", "finance-analytics", "warehouse-operations-analytics", "retail-operations-analytics", "fabriciq"} <= skills.keys()
     assert len({d["name"] for d in routing["domains"]}) == len(routing["domains"])
+    expected_domains = {
+        "finance": "Microsoft Business Central",
+        "warehouse-operations": "Manhattan SCALE",
+        "retail-operations": "RMS",
+    }
+    assert {d["name"]: d["sourceSystem"] for d in routing["domains"]} == expected_domains
+    assert "sales-analytics" not in skills, "Sales belongs to Finance"
+    for domain in routing["domains"]:
+        assert domain["skill"] == domain["name"] + "-analytics"
+        assert domain["discoveryTerms"] and domain["intents"]
+
     for route in [*routing["domains"], routing["fallback"]]:
         assert route["skill"] in skills
         target = (plugin / "references" / route["skillPath"]).resolve()

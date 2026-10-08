@@ -1,12 +1,13 @@
 # Dempsey ChatGPT analytics plugins
 
-This directory is the Git-managed marketplace root. Dempsey Fabric IQ 0.1.0 bundles the tenant's Fabric IQ app connection and four instruction skills for a fresh deployment:
+This directory is the Git-managed marketplace root. Dempsey Fabric IQ 0.1.1 bundles the tenant's Fabric IQ app connection and five instruction skills for a fresh deployment:
 
 | Skill | Responsibility |
 | --- | --- |
 | analytics-orchestrator | Workspace gate, domain routing and cross-domain synthesis |
-| sales-analytics | Sales metrics, orders, returns, targets, date and delivery semantics |
-| finance-analytics | Statements, accounting metrics, budget, balances, signs and currency |
+| finance-analytics | Microsoft Business Central Finance, including typical sales analytics |
+| warehouse-operations-analytics | Manhattan SCALE inventory, replenishment, receiving/inbound, putaway and outbound picking |
+| retail-operations-analytics | RMS-based Retail Operations facts and dimensions |
 | fabriciq | Discovery, metadata, verified answers, value resolution and read-only DAX |
 
 The assistant reads and follows these skills in one conversation. They are not separate hosted agents. Runtime tool definitions come from the connected MCP app.
@@ -16,7 +17,7 @@ The required connector is **Fabric IQ**, app ID `asdk_app_6abf329a7fcc81c7980836
 ## First-question behavior
 
 1. The user asks an analytics question.
-2. Fabric IQ searches accessible Sales and Finance content.
+2. Fabric IQ searches accessible Finance, Warehouse Operations and Retail Operations content.
 3. The assistant shows the returned workspace choices and waits for selection.
 4. It selects/disambiguates a relevant report/model within that workspace, loads domain guidance and source business instructions, and continues the original question.
 5. Follow-ups retain the workspace during this conversation. A workspace switch clears source-specific context. A new chat prompts again.
@@ -34,7 +35,7 @@ For this fresh tenant deployment:
 1. Use this local repository and its current branch as the deployment source.
 2. Validate the marketplace using the command below.
 3. Import the marketplace/plugin from the local source using the target host's supported import workflow.
-4. Confirm Dempsey Fabric IQ 0.1.0 lists all four skills and requires the Fabric IQ app identified above. Configure installation policy and app availability for the intended roles. Members must authenticate and have Power BI access.
+4. Confirm Dempsey Fabric IQ 0.1.1 lists all five skills and requires the Fabric IQ app identified above. Configure installation policy and app availability for the intended roles. Members must authenticate and have Power BI access.
 5. Run the acceptance scenarios in a fresh chat.
 6. Commit the deployment source and push the branch to the Azure DevOps repository.
 
@@ -51,7 +52,7 @@ The local repository supplies deployment content;
 
 ## Structure and extension
 
-The plugin root has portable and native compatibility manifests. skills/ holds the four workflows and domain references. references/ holds workspace selection, session context and analytics-routing.json. common/ contains pinned Microsoft references. UPSTREAM.md records attribution and the local integration insertion.
+The plugin root has portable and native compatibility manifests. skills/ holds the five workflows and domain references. references/ holds workspace selection, session context and analytics-routing.json. common/ contains pinned Microsoft references. UPSTREAM.md records attribution and the local integration insertion.
 
 To add another domain:
 1. Add a named skill folder with matching frontmatter and focused measurement rules.

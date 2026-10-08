@@ -1,0 +1,4 @@
+interface:
+  display_name: "Retail Operations Analytics"
+  short_description: "Analyze RMS business data"
+  default_prompt: "Use $retail-operations-analytics to analyze Retail Operations in my chosen workspace."

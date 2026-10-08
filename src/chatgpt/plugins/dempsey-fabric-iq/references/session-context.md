@@ -8,7 +8,7 @@ durable credential store or shared application state:
 - selectedWorkspaces: the explicitly confirmed focus; normally one workspace.
 - workspaceIdentity: ID when returned, exact name and relevant canonical source
   links. Names alone are not stable unique identifiers.
-- domain: Sales, Finance, both or general.
+- domain: Finance, Warehouse Operations, Retail Operations, a combination or general.
 - domainArtifacts: per-domain report/model identity, type and source workspace.
 - reportContext: selected report/page/visual and applicable filters, if any.
 - businessContext: period/calendar, company/entity, currency/unit, scenario and grain.
@@ -24,8 +24,9 @@ A selection may be reused only within this conversation. Missing context means
 rediscover/reselect, not guess.
 
 A new domain preserves selectedWorkspaces but requires its own relevant artifact
-selection, schema and business rules. Do not use the Sales model for Finance by
-default or transfer a verified answer across models.
+selection, schema and business rules. Do not reuse a model across domains without validating its coverage, or transfer
+a verified answer across models. Finance includes Business Central sales.
+Record source-system context alongside domain identity when resolving ambiguity.
 
 "Switch workspace" moves selected -> awaiting-choice and clears source-specific
 context. "Refresh available workspaces" refreshes discovery, retaining the old

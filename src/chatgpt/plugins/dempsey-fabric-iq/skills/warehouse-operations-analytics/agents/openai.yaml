@@ -1,0 +1,4 @@
+interface:
+  display_name: "Warehouse Operations Analytics"
+  short_description: "Analyze Manhattan SCALE business data"
+  default_prompt: "Use $warehouse-operations-analytics to analyze Warehouse Operations in my chosen workspace."
