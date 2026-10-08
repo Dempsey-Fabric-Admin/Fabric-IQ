@@ -1,20 +1,23 @@
 {
-  "name": "dempsey-fabric-iq",
-  "version": "0.1.1",
-  "description": "Analyze Finance (Business Central, including sales), Warehouse Operations (Manhattan SCALE) and Retail Operations (RMS) through Fabric IQ.",
-  "author": {
-    "name": "Dempsey"
-  },
   "apps": "./.app.json",
   "interface": {
-    "displayName": "Dempsey Fabric IQ",
-    "shortDescription": "Fabric IQ Business Analytics",
-    "longDescription": "Analyze Finance (Business Central, including sales), Warehouse Operations (Manhattan SCALE) and Retail Operations (RMS) through Fabric IQ.",
-    "developerName": "Ishini Fernando",
-    "category": "Business Analytics",
     "capabilities": [
       "Read"
     ],
-    "defaultPrompt": "Use Fabric IQ to find Finance, Warehouse Operations and Retail Operations content. Show workspace names so I can select the correct model."
-  }
+    "category": "Business Analytics",
+    "defaultPrompt": "Use Fabric IQ to find Finance, Warehouse Operations and Retail Operations content. Show workspace names so I can select the correct model.",
+    "developerName": "Fabric Admin",
+    "displayName": "Dempsey Fabric IQ",
+    "longDescription": "Analyze Finance (Business Central, including sales), Warehouse Operations (Manhattan SCALE) and Retail Operations (RMS) through Fabric IQ.",
+    "shortDescription": "Fabric IQ Business Analytics"
+  },
+  "name": "dempsey-fabric-iq",
+  "version": "0.1.2",
+  "description": "Analyze Finance (Business Central, including sales), Warehouse Operations (Manhattan SCALE) and Retail Operations (RMS) through Fabric IQ.",
+  "author": {
+    "name": "Fabric Admin",
+    "email": "fabric.admin@dempseygroup.com.au"
+  },
+  "keywords": [],
+  "skills": "./skills"
 }

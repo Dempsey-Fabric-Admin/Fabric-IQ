@@ -7,7 +7,7 @@ These checks are behavioral acceptance cases, not a claim that they passed live.
 
 | Scenario | Prompt/context | Expected behavior |
 | --- | --- | --- |
-| Environment binding | Install version 0.1.1 with multiple Fabric IQ connections available | Required app is asdk_app_6abf329a7fcc81c79808365fa0e19cb9; all discovery, resolution, metadata, value and query calls use that connection |
+| Environment binding | Install version 0.1.2 with multiple Fabric IQ connections available | Required app is asdk_app_6ac7c2b7d71881c78074e8e10232776c; all discovery, resolution, metadata, value and query calls use that connection |
 | Configured connector unavailable | Required Fabric IQ app is disconnected while another Fabric IQ connection is available | Request connection of the configured app; do not substitute another connection |
 | First Sales question | "What is my sales revenue for 2024?" | Discover Finance/Warehouse/Retail content; show source-based workspace choices and wait; no schema/data query before choice; preserve original question |
 | Direct Finance sales question | Invoke finance-analytics with "Sales versus targets for 2025 by month" in a new chat | Route Business Central sales to Finance; same workspace gate; no bypass through domain invocation |

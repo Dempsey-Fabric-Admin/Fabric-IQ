@@ -1,6 +1,6 @@
 # Dempsey ChatGPT analytics plugins
 
-This directory is the Git-managed marketplace root. Dempsey Fabric IQ 0.1.1 bundles the tenant's Fabric IQ app connection and five instruction skills for a fresh deployment:
+This directory is the Git-managed marketplace root. Dempsey Fabric IQ 0.1.2 bundles the tenant's Fabric IQ app connection and five instruction skills for a fresh deployment:
 
 | Skill | Responsibility |
 | --- | --- |
@@ -12,7 +12,7 @@ This directory is the Git-managed marketplace root. Dempsey Fabric IQ 0.1.1 bund
 
 The assistant reads and follows these skills in one conversation. They are not separate hosted agents. Runtime tool definitions come from the connected MCP app.
 
-The required connector is **Fabric IQ**, app ID `asdk_app_6abf329a7fcc81c79808365fa0e19cb9`, configured in [`plugins/dempsey-fabric-iq/.app.json`](plugins/dempsey-fabric-iq/.app.json). Use this connection for every analytics operation, including discovery.
+The required connector is **Fabric IQ**, app ID `asdk_app_6ac7c2b7d71881c78074e8e10232776c`, configured in [`plugins/dempsey-fabric-iq/.app.json`](plugins/dempsey-fabric-iq/.app.json). Use this connection for every analytics operation, including discovery.
 
 ## First-question behavior
 
@@ -35,7 +35,7 @@ For this fresh tenant deployment:
 1. Use this local repository and its current branch as the deployment source.
 2. Validate the marketplace using the command below.
 3. Import the marketplace/plugin from the local source using the target host's supported import workflow.
-4. Confirm Dempsey Fabric IQ 0.1.1 lists all five skills and requires the Fabric IQ app identified above. Configure installation policy and app availability for the intended roles. Members must authenticate and have Power BI access.
+4. Confirm Dempsey Fabric IQ 0.1.2 lists all five skills and requires the Fabric IQ app identified above. Configure installation policy and app availability for the intended roles. Members must authenticate and have Power BI access.
 5. Run the acceptance scenarios in a fresh chat.
 6. Commit the deployment source and push the branch to the Azure DevOps repository.
 
