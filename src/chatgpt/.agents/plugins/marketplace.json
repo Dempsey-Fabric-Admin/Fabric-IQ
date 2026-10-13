@@ -1,0 +1,15 @@
+{
+  "name": "dempsey-chatgpt",
+  "interface": {
+    "displayName": "Dempsey ChatGPT"
+  },
+  "plugins": [
+    {
+      "name": "dempsey-fabric-iq",
+      "source": {
+        "source": "local",
+        "path": "./plugins/dempsey-fabric-iq"
+      }
+    }
+  ]
+}

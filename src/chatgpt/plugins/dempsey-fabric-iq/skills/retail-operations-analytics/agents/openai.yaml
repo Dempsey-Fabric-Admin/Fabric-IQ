@@ -1,0 +1,4 @@
+interface:
+  display_name: "Retail Operations Analytics"
+  short_description: "Handle planned RMS analytics"
+  default_prompt: "Use $retail-operations-analytics to assess whether Retail Operations analytics is configured."

@@ -1,0 +1,8 @@
+{
+  "apps": {
+    "fabric-iq": {
+      "id": "asdk_app_6ac7c2b7d71881c78074e8e10232776c",
+      "required": true
+    }
+  }
+}

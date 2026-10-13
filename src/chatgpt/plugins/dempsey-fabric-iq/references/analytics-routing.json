@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "workspaceSelection": {
+    "mode": "prioritized-artifact-discovery",
+    "promptOnFirstAnalyticsRequest": false,
+    "promptWhenAmbiguous": true,
+    "scopeLifetime": "current-conversation",
+    "maxResultsPerSearch": 50,
+    "initialSearchTerms": [
+      "Finance Analytics"
+    ],
+    "environmentPriority": [
+      "production",
+      "test",
+      "development"
+    ],
+    "environmentMarkers": {
+      "test": [
+        "TST",
+        "TEST"
+      ],
+      "development": [
+        "DEV",
+        "DEVELOPMENT"
+      ]
+    },
+    "exhaustive": false
+  },
+  "domains": [
+    {
+      "name": "finance",
+      "displayName": "Finance",
+      "sourceSystem": "Microsoft Business Central",
+      "availability": "confirmed",
+      "canonicalArtifactName": "Finance Analytics",
+      "skill": "finance-analytics",
+      "skillPath": "../skills/finance-analytics/SKILL.md",
+      "discoveryTerms": [
+        "Finance",
+        "Business Central",
+        "Sales",
+        "Income Statement",
+        "Balance Sheet"
+      ],
+      "intents": [
+        "financial statements",
+        "sales revenue",
+        "sales orders",
+        "customers",
+        "returns",
+        "sales targets",
+        "profit",
+        "expenses",
+        "budget",
+        "receivables",
+        "payables",
+        "cash flow"
+      ]
+    },
+    {
+      "name": "warehouse-operations",
+      "displayName": "Warehouse Operations",
+      "sourceSystem": "Manhattan SCALE",
+      "availability": "planned",
+      "canonicalArtifactName": null,
+      "skill": "warehouse-operations-analytics",
+      "skillPath": "../skills/warehouse-operations-analytics/SKILL.md",
+      "discoveryTerms": [
+        "Warehouse",
+        "Manhattan SCALE",
+        "Inventory",
+        "Replenishment",
+        "Receiving",
+        "Putaway",
+        "Picking"
+      ],
+      "intents": [
+        "warehouse inventory",
+        "replenishment",
+        "receiving",
+        "inbound",
+        "putaway",
+        "outbound",
+        "picking",
+        "warehouse throughput"
+      ]
+    },
+    {
+      "name": "retail-operations",
+      "displayName": "Retail Operations",
+      "sourceSystem": "RMS",
+      "availability": "planned",
+      "canonicalArtifactName": null,
+      "skill": "retail-operations-analytics",
+      "skillPath": "../skills/retail-operations-analytics/SKILL.md",
+      "discoveryTerms": [
+        "Retail",
+        "RMS"
+      ],
+      "intents": [
+        "retail operations",
+        "RMS",
+        "store sales",
+        "retail returns",
+        "store inventory"
+      ]
+    }
+  ],
+  "fallback": {
+    "skill": "fabriciq",
+    "skillPath": "../skills/fabriciq/SKILL.md"
+  }
+}
