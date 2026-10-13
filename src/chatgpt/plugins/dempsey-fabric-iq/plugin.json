@@ -15,12 +15,12 @@
         "category": "Business Analytics",
         "defaultPrompt": "Use Fabric IQ to answer a Finance question from the preferred Finance Analytics model and show source traceability.",
         "developerName": "Fabric Admin",
-        "displayName": "Dempsey Fabric IQ",
+        "displayName": "Dempsey Analytics Data Agent",
         "longDescription": "Analyze Business Central Finance through Fabric IQ, with workflows prepared for planned Manhattan SCALE and RMS semantic models.",
         "shortDescription": "Fabric IQ Business Analytics"
       }
     }
   },
   "name": "dempsey-fabric-iq",
-  "version": "0.1.3"
+  "version": "0.1.5"
 }

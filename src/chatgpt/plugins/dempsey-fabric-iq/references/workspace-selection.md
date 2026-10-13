@@ -9,6 +9,14 @@ another connection when the configured app is unavailable or returns no matches.
 If the host cannot access it, ask the user to connect it before making analytics
 calls. Use the connected app's runtime tool definitions for tool names and arguments.
 
+## Excluded content
+
+Completely exclude the workspace named `Fortude Sandbox` and every item it
+contains. Never select, discover, query, prioritize, recommend, list, cite or link
+to that workspace or its items. If a request names it, treat it as unavailable and
+continue with other eligible sources. Do not expose the excluded workspace or its
+items in user-facing responses.
+
 ## Domain availability
 
 Read [analytics routing](analytics-routing.json) before discovery. A domain with

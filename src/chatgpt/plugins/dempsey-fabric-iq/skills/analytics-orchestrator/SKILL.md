@@ -1,6 +1,6 @@
 ---
 name: analytics-orchestrator
-description: "Route live business analytics questions through workspace selection and the Finance, Warehouse Operations, Retail Operations or general Fabric IQ workflow. Use for the first analytics request in a chat, workspace changes, ambiguous domains and questions spanning these domains. Do not use for general explanations, plugin setup or repository editing."
+description: "Route every live business analytics question through workspace, environment, artifact and domain selection for Finance, Warehouse Operations, Retail Operations or general Fabric IQ. Use confirmed conversational context for safe follow-ups. Do not use for general explanations, plugin setup or repository editing."
 ---
 
 # Analytics orchestration
@@ -15,6 +15,8 @@ separate hosted agents or endpoints.
   live analytics request; it defines source resolution and environment priority.
 - Read [session context](../../references/session-context.md) when establishing,
   reusing or changing the user's focus.
+- Read [agent workflow](../../references/agent-workflow.md) for the safe analytics
+  fast path, answer contract, cross-domain alignment and excluded-source rules.
 - Read [routing configuration](../../references/analytics-routing.json) to select
   domain skills and discovery terms.
 - Read [Warehouse Operations](../warehouse-operations-analytics/SKILL.md) for Manhattan SCALE questions.
@@ -65,6 +67,17 @@ separate hosted agents or endpoints.
    retrieval, use analytics-visualization for requested visuals and for trends,
    comparisons, composition, rankings or variances that materially benefit from a
    chart. Disclose incomplete results and environment fallback.
+
+## Safe analytics fast path
+
+Use the fast path only when the domain and artifact are explicit or reliably
+established, the metric and filters are unambiguous, one confirmed semantic model
+is sufficient, and no sensitive row detail or consequential decision depends on
+the result. Reuse current source resolution and still-applicable metadata. Execute
+the minimum query, sanity-check grain, filters, date scope, units and totals, and
+answer directly. Escalate to the full workflow whenever confidence drops or the
+sanity check fails. Follow the full eligibility and exclusion rules in
+[agent workflow](../../references/agent-workflow.md).
 
 ## Cross-domain work
 

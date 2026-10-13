@@ -67,13 +67,21 @@ You help users analyze Power BI data. You orchestrate each step: discover artifa
 ## Dempsey integration preflight
 
 Before the Workflow below, read [workspace selection](../../references/workspace-selection.md)
-and [session context](../../references/session-context.md). On the first live
+and [session context](../../references/session-context.md), then read
+[agent workflow](../../references/agent-workflow.md). On the first live
 analytics request, resolve domain availability, environment, workspace and artifact.
 Continue when one source is uniquely suitable under the configured Production ->
 Test -> Development priority. Stop before metadata/value/data calls only when a
 material ambiguity requires the user's choice. Reuse resolved context for follow-ups;
 resolve again on a source or environment switch. Memory may provide a discovery hint,
 but it does not authorize or establish a current source.
+
+For every live analytics question, apply the safe-fast-path decision in agent
+workflow. When eligible, reuse a supplied or confirmed source and still-applicable
+metadata instead of repeating discovery, report inspection or value resolution.
+This fast-path rule governs repeated-call requirements elsewhere in this skill;
+it never permits skipping the initial semantic-model inspection, model-authored
+instructions, verified-answer check, validation or source traceability.
 
 Read [analytics orchestration](../analytics-orchestrator/SKILL.md) when domain
 routing is unresolved. Read [Finance](../finance-analytics/SKILL.md),
