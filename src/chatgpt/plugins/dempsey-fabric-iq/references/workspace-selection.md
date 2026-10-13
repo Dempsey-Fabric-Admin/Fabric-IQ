@@ -1,116 +1,100 @@
-# Workspace selection
+# Environment, workspace and artifact selection
 
 ## Connector scope
 
-Use only the Fabric IQ app bound in [the app configuration](../.app.json)
-for discovery, item resolution, metadata, value search and queries. Match the
-connection by its app identity, not just a similar display name or tool name.
-Never substitute another connection if the configured app is unavailable or
-returns no matches.
-If the host cannot identify or access the configured connection, ask the user to
-connect it before making analytics calls. Use the connected app's runtime tool
-definitions for actual tool names and arguments.
+Use only the Fabric IQ app bound in [the app configuration](../.app.json) for
+discovery, item resolution, metadata, value search and queries. Match the
+connection by app identity, not a similar display or tool name. Never substitute
+another connection when the configured app is unavailable or returns no matches.
+If the host cannot access it, ask the user to connect it before making analytics
+calls. Use the connected app's runtime tool definitions for tool names and arguments.
 
-## When to prompt
+## Domain availability
 
-On the first live analytics request in each new conversation, discover accessible
-content and ask the user to choose the workspace focus BEFORE metadata, value
-search or data queries. Even one candidate requires a choice. A workspace remembered
-from another conversation is not a selection for this conversation.
+Read [analytics routing](analytics-routing.json) before discovery. A domain with
+`availability: confirmed` may be queried. A domain with `availability: planned`
+must not trigger broad discovery or substitution until its canonical model has
+been configured. Explain that its semantic model is not yet available.
 
-If the first request explicitly names a workspace, find matching content and
-present that workspace for confirmation. If it includes an artifact URL or unknown
-GUID, use ResolveFabricItem first and present its returned identity/workspace for
-confirmation. If resolution does not report a workspace, say it is unknown and ask
-whether to focus on that resolved artifact; do not invent a workspace or inspect
-its schema merely to bypass the selection gate. Never reinterpret the request as permission to pick another workspace.
+Finance is currently confirmed through the `Finance Analytics` semantic model.
+Warehouse Operations and Retail Operations are planned and have no configured
+canonical model. A user-supplied URL or artifact ID does not silently change this
+configuration; resolve it for identity, then ask whether the plugin configuration
+should be updated before treating it as the domain source.
 
-Once selected, reuse the focus for follow-ups. Reopen the chooser only on an
-explicit switch, a request for another workspace, or loss of usable source context.
-A new domain in the same workspace does not require reselection.
+## Environment priority
 
-For conceptual explanations without live data, skip the chooser.
+Unless the user explicitly requests an environment, select the strongest suitable
+source using this order:
 
-## Discover choices
+1. Production: names without DEV, TST, TEST or other explicit non-production markers.
+2. Test: names explicitly marked TST or TEST, when no suitable Production source exists.
+3. Development: names explicitly marked DEV or DEVELOPMENT, only when neither
+   Production nor Test has a suitable source.
 
-Read analytics-routing.json. For an unscoped first analytics request, call
-DiscoverArtifacts for each initialSearchTerms entry, with artifactTypes
-["SemanticModel", "Report"] and maxResults 50. These are valid non-empty searches.
-The searches are independent and may run in parallel.
+Environment classification from names is a selection heuristic, not proof of the
+deployment tier. Keep the returned workspace and artifact names visible. Honor an
+explicit Production, TST/TEST or DEV request. Do not ask merely because a fallback
+to Test or Development is required, but disclose the fallback prominently. Never
+combine copies from different environments unless the user asks for that comparison.
 
-These are search results, NOT a workspace inventory. The Fabric IQ connection
-has no ListWorkspaces tool, and searches may return broad or approximate matches.
-Never use an empty search term, wildcard enumeration or workspace/item REST APIs
-with this connection. Do not claim the list includes every workspace the user can access.
+## Resolve the source
 
-Use actual returned artifacts only:
-- Deduplicate artifacts by canonical artifact ID and type.
-- Group workspaces by returned workspace ID when available. If only names are
-  known, group for display but retain distinct artifact IDs and links; identical
-  names are not proof that workspace identities are identical.
-- Keep DEV, TST, OLD and other labels visible. Never prefer a previous user's
-  workspace or silently substitute a production/test copy.
-- Show matching artifact names/types per workspace as examples, with source links
-  where returned. A discovery hit is a candidate, not proof it answers the question.
-- Keep every discovered workspace available for selection. If the list is large,
-  paginate the display and explicitly offer the remaining choices and search.
-- Do not store this user's discovery results, identities, tokens or business data
-  in Git or share a candidate list between users.
+For the first live analytics request in a conversation:
 
-Suggested first reply:
-"I found these workspaces through Finance, Warehouse Operations and Retail Operations content accessible with your
-connected account. Which workspace should I use for this chat?"
-Follow with a numbered table: Workspace | Example reports/models.
-Then: "This is a search-based list and may be incomplete. You can also give me a
-workspace or report/model name, or paste its browser URL."
+1. Preserve the original question as `pendingQuestion`.
+2. Determine the domain and check its configured availability.
+3. If the user supplied a Fabric/Power BI URL or unknown GUID, use
+   ResolveFabricItem and retain its canonical identity.
+4. Otherwise, discover the configured canonical artifact name first, followed by
+   focused domain terms only when needed. Use artifact types `SemanticModel` and
+   `Report` with at most 50 results per search.
+5. Apply explicit environment scope or the default environment priority.
+6. Select the strongest uniquely suitable artifact and continue without a separate
+   confirmation prompt. If multiple candidates remain materially plausible, show
+   their environment, workspace and artifact names and ask the smallest clarifying
+   question. Even one workspace can contain multiple plausible artifacts.
 
-Do not use a fixed two/three-option menu that hides remaining real choices.
-A plain numbered table and a direct question are sufficient.
+For conceptual explanations without live data, skip discovery.
 
-## Resume the pending request
+## Discovery limits
 
-After the user chooses:
-1. Record the selected workspace and pending question in current conversation
-   context, following session-context.md.
-2. Filter candidate artifacts locally to the chosen workspace; DiscoverArtifacts
-   currently has no workspaceId filter. If more discovery is needed, use a
-   specific domain/artifact search term then filter its returned candidates.
-3. A reply like "2" refers to the latest shown choices. If multiple same-name
-   identities remain, disambiguate using the returned source links/artifacts;
-   do not assume they are one workspace.
-4. For workspace-name selection, choose an artifact only when uniquely relevant.
-   If several strong models/reports remain, ask the user to select one.
-5. Resolve canonical IDs where needed. For a report, use GetReportMetadata to find
-   its actual underlying semantic model; never infer the model ID from its name.
-6. If the chosen report binds to a model in another workspace, retain the report
-   binding and its filters; disclose the source distinction. Do not replace the
-   model with a same-name model in the report's workspace.
-7. Confirm the focus briefly and continue the original question without requiring
-   the user to retype it. If another ambiguity blocks a correct query, ask that
-   focused question.
+DiscoverArtifacts returns search matches, not an exhaustive workspace inventory.
+The connection has no ListWorkspaces tool and no supported discovery pagination.
+Never use an empty term, wildcard enumeration or workspace/item REST APIs.
+
+Use only returned artifacts:
+
+- Deduplicate by canonical artifact ID and type.
+- Group workspaces by returned workspace ID when available. Identical names do
+  not establish identical identities.
+- Keep environment markers visible and retain source links.
+- Treat a discovery hit as a candidate, not proof that it answers the question.
+- Do not store discovery results, IDs, tokens or business data in Git or share
+  them between users.
+
+## Continue and switch
+
+After source resolution, record environment, workspace, artifact and pending
+question in conversational context, following [session context](session-context.md).
+For a report, use GetReportMetadata to obtain its actual underlying semantic model;
+never infer a model ID from its name. If a report binds to a model in another
+workspace, retain that binding and its filters and disclose the distinction.
+
+Reuse the resolved source for relevant follow-ups. On an explicit workspace,
+artifact or environment switch, clear source-specific metadata, schema, values and
+verified answers, then resolve again. A reply such as “2” refers to the latest
+displayed candidates. Continue the pending question after resolution without
+requiring the user to repeat it.
 
 ## Missing content and failures
 
-No matches: say no matching content was found, not that the user has no workspaces.
-Ask for a report/model name, browser URL or workspace plus domain. For Finance,
-a bounded follow-up search for Income Statement or Balance Sheet can help.
-Use the fallback domain discovery terms only when needed; avoid repeated broad scans.
+No matches means no matching content was found, not that the user has no access.
+Ask for a report/model name or browser URL. If the configured canonical Finance
+model is not found, report that specifically and allow a focused search for Finance,
+Income Statement or Balance Sheet; do not substitute an unrelated model.
 
-Unlisted workspace: search the supplied artifact/workspace/domain terms, show the
-returned candidates and confirm. A failed search is not an access-denied verdict.
-
-Truncation/50-result limit: disclose that results may be incomplete and ask for a
-narrower name or URL; there is no supported discovery pagination argument.
-
-Partial discovery failure: label the successful choices as partial and disclose
-the failed search. Do not interpret authentication, throttling or timeout errors
-as an empty inventory. On an authentication failure, stop affected calls and guide
-the user to reconnect. On a transient timeout, retry once; respect rate-limit
-backoff instructions without blocking the conversation indefinitely.
-
-Workspace switch: invalidate report/model/schema/value/verified-answer context
-from the old focus and rediscover or resolve within the new scope. The business
-question can be retained, but source identity and filters cannot be transplanted.
-
-Unavailable selected artifact: explain the failure and ask for another accessible
-artifact in the selected workspace. Never silently switch workspaces.
+Label partial results when a search fails. Do not turn authentication, throttling
+or timeout errors into an empty inventory. On authentication failure, stop affected
+calls and guide the user to reconnect. Retry a transient timeout once and respect
+rate-limit backoff without blocking the conversation indefinitely.

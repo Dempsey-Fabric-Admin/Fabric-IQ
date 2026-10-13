@@ -1,11 +1,18 @@
 ---
 name: retail-operations-analytics
-description: "Analyze live Retail Operations questions using Power BI reports/models based on RMS. Scope includes retail operations, RMS, store sales, retail returns, store inventory. Apply the shared workspace gate first; resolve source-system ambiguity before selecting a model."
+description: "Handle Retail Operations questions for RMS. The domain is planned and must not be queried until a canonical semantic model is configured; once available, scope can include store sales, returns, inventory and other modeled retail processes."
 ---
 
 # Retail Operations analytics
 
 Retail Operations facts and dimensions derived from RMS tables. Determine the available retail processes and metrics from the selected model; do not assume a particular RMS vendor, version or table layout.
+
+## Current availability
+
+Retail Operations is planned, but no canonical semantic model is configured.
+Explain that retail analytics is not yet available and do not discover or
+substitute unrelated models. A model becomes usable only after its canonical name
+and `availability: confirmed` are set in analytics-routing.json.
 
 ## Resources
 
@@ -18,8 +25,10 @@ Retail Operations facts and dimensions derived from RMS tables. Determine the av
 
 ## Workflow
 
-1. Pass the shared workspace gate and preserve the pending question.
-2. Discover or resolve the relevant Retail Operations report/model in the selected workspace.
+1. Check domain availability in analytics-routing.json. While it is `planned`,
+   preserve the pending question, explain the limitation and stop before discovery.
+2. Once configured, resolve the source through the shared environment/workspace/
+   artifact workflow, then discover or resolve the relevant Retail Operations model.
    Use [routing terms](../../references/analytics-routing.json) as search hints,
    not guaranteed artifact names. Confirm multiple strong candidates and honor
    explicit report/model requests. Validate source relevance from available metadata.

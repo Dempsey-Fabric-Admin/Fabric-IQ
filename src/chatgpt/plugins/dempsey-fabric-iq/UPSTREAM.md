@@ -22,8 +22,13 @@ To update, select a new upstream commit, copy the same files, update this attrib
 
 ## Dempsey integration in version 0.1.0
 
-skills/fabriciq/SKILL.md retains the pinned upstream body with one added "Dempsey integration preflight" section immediately before Workflow. This adds conversation workspace selection, domain routing and explicit-scope preservation.
+skills/fabriciq/SKILL.md retains the pinned upstream body with one added "Dempsey integration preflight" section immediately before Workflow. This adds prioritized source resolution, domain routing and explicit-scope preservation.
 Its relative links point to the bundled skills and shared references.
 Reapply this insertion deliberately when updating the upstream skill; do not silently overwrite the integration gate.
 
 analytics-orchestrator and finance-analytics retain workflow guidance adapted from the original Fluid integration. Finance now includes Business Central sales guidance. warehouse-operations-analytics and retail-operations-analytics add Manhattan SCALE and RMS domain workflows. These skills and their references are local integration additions. Their generic business rules must be checked against each selected model's actual definitions. No hidden Fabric Data Agent instructions or fixed workspace/model assignments have been imported.
+
+Version 0.1.3 adds local environment-priority, model-availability and visualization
+instructions derived from the comparison Fabric IQ Agent. The analytics-visualization
+skill is a Dempsey-authored addition. Finance Analytics is the only confirmed
+canonical domain model in this version; Warehouse and Retail remain planned.

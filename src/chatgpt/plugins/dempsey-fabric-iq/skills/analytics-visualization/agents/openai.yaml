@@ -1,0 +1,4 @@
+interface:
+  display_name: "Analytics Visualization"
+  short_description: "Create polished charts from verified analytics results"
+  default_prompt: "Use $analytics-visualization to add a useful chart to this analytics answer."

@@ -1,6 +1,6 @@
 ---
 name: finance-analytics
-description: "Analyze live Finance questions using Power BI reports/models based on Microsoft Business Central. Scope includes financial statements, sales revenue, sales orders, customers, returns, sales targets, profit, expenses, budget, receivables, payables, cash flow. Apply the shared workspace gate first; resolve source-system ambiguity before selecting a model."
+description: "Analyze live Finance questions using Power BI reports/models based on Microsoft Business Central. Scope includes financial statements, sales revenue, sales orders, customers, returns, sales targets, profit, expenses, budget, receivables, payables, cash flow. Apply shared source resolution first; resolve source-system ambiguity before selecting a model."
 ---
 
 # Finance analytics
@@ -18,11 +18,14 @@ Finance facts and dimensions derived from Microsoft Business Central finance-rel
 
 ## Workflow
 
-1. Pass the shared workspace gate and preserve the pending question.
-2. Discover or resolve the relevant Finance report/model in the selected workspace.
-   Use [routing terms](../../references/analytics-routing.json) as search hints,
-   not guaranteed artifact names. Confirm multiple strong candidates and honor
-   explicit report/model requests. Validate source relevance from available metadata.
+1. Resolve the source through the shared environment/workspace/artifact workflow
+   and preserve the pending question.
+2. Prefer the confirmed canonical semantic model `Finance Analytics`. Honor an
+   explicit report/model request. Otherwise discover that exact name first and
+   apply the configured Production -> Test -> Development priority. Use broader
+   Finance routing terms only when the canonical search misses. Ask only when
+   multiple candidates remain materially plausible, and validate source relevance
+   from returned metadata.
 3. Read report metadata for report-based requests and the full semantic model
    schema, CustomInstructions and verified answers. Retrieve missing context if truncated.
 4. Prefer matched verified answers and published measures. Inspect actual facts,

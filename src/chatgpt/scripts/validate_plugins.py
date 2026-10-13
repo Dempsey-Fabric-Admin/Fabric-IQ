@@ -63,16 +63,18 @@ def validate(plugin):
 
     routing = load_json(plugin / "references/analytics-routing.json")
     selection = routing["workspaceSelection"]
-    assert selection["mode"] == "discover-artifact-workspaces"
-    assert selection["promptOnFirstAnalyticsRequest"] is True
+    assert selection["mode"] == "prioritized-artifact-discovery"
+    assert selection["promptOnFirstAnalyticsRequest"] is False
+    assert selection["promptWhenAmbiguous"] is True
     assert selection["scopeLifetime"] == "current-conversation"
     assert selection["exhaustive"] is False
+    assert selection["environmentPriority"] == ["production", "test", "development"]
     assert 1 <= selection["maxResultsPerSearch"] <= 50
     assert selection["initialSearchTerms"] and all(
         isinstance(term, str) and term.strip() and term != "*"
         for term in selection["initialSearchTerms"]
     )
-    assert {"analytics-orchestrator", "finance-analytics", "warehouse-operations-analytics", "retail-operations-analytics", "fabriciq"} <= skills.keys()
+    assert {"analytics-orchestrator", "analytics-visualization", "finance-analytics", "warehouse-operations-analytics", "retail-operations-analytics", "fabriciq"} <= skills.keys()
     assert len({d["name"] for d in routing["domains"]}) == len(routing["domains"])
     expected_domains = {
         "finance": "Microsoft Business Central",
@@ -80,6 +82,15 @@ def validate(plugin):
         "retail-operations": "RMS",
     }
     assert {d["name"]: d["sourceSystem"] for d in routing["domains"]} == expected_domains
+    expected_availability = {
+        "finance": ("confirmed", "Finance Analytics"),
+        "warehouse-operations": ("planned", None),
+        "retail-operations": ("planned", None),
+    }
+    assert {
+        d["name"]: (d["availability"], d["canonicalArtifactName"])
+        for d in routing["domains"]
+    } == expected_availability
     assert "sales-analytics" not in skills, "Sales belongs to Finance"
     for domain in routing["domains"]:
         assert domain["skill"] == domain["name"] + "-analytics"
@@ -91,7 +102,7 @@ def validate(plugin):
         assert target.is_relative_to(plugin.resolve()) and target.is_file()
         assert target == (plugin / "skills" / route["skill"] / "SKILL.md").resolve()
     for name in skills:
-        assert "workspace-selection.md" in skills[name], f"Missing workspace gate link: {name}"
+        assert "workspace-selection.md" in skills[name], f"Missing source-selection link: {name}"
     print(f"Validated {portable['name']} {portable['version']}: {len(skills)} skills")
 
 

@@ -1,11 +1,18 @@
 ---
 name: warehouse-operations-analytics
-description: "Analyze live Warehouse Operations questions using Power BI reports/models based on Manhattan SCALE. Scope includes warehouse inventory, replenishment, receiving, inbound, putaway, outbound, picking, warehouse throughput. Apply the shared workspace gate first; resolve source-system ambiguity before selecting a model."
+description: "Handle Warehouse Operations questions for Manhattan SCALE. The domain is planned and must not be queried until a canonical semantic model is configured; once available, scope includes inventory, replenishment, receiving, inbound, putaway, outbound, picking and throughput."
 ---
 
 # Warehouse Operations analytics
 
 Warehouse facts and dimensions derived from Manhattan SCALE warehouse-management tables: inventory, replenishment, receiving (inbound and putaway), and outbound picking.
+
+## Current availability
+
+Warehouse Operations is planned, but no canonical semantic model is configured.
+Explain that warehouse analytics is not yet available and do not discover or
+substitute unrelated models. A model becomes usable only after its canonical name
+and `availability: confirmed` are set in analytics-routing.json.
 
 ## Resources
 
@@ -18,8 +25,10 @@ Warehouse facts and dimensions derived from Manhattan SCALE warehouse-management
 
 ## Workflow
 
-1. Pass the shared workspace gate and preserve the pending question.
-2. Discover or resolve the relevant Warehouse Operations report/model in the selected workspace.
+1. Check domain availability in analytics-routing.json. While it is `planned`,
+   preserve the pending question, explain the limitation and stop before discovery.
+2. Once configured, resolve the source through the shared environment/workspace/
+   artifact workflow, then discover or resolve the relevant Warehouse Operations model.
    Use [routing terms](../../references/analytics-routing.json) as search hints,
    not guaranteed artifact names. Confirm multiple strong candidates and honor
    explicit report/model requests. Validate source relevance from available metadata.

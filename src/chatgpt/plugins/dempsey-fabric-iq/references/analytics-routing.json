@@ -1,15 +1,29 @@
 {
   "schemaVersion": 1,
   "workspaceSelection": {
-    "mode": "discover-artifact-workspaces",
-    "promptOnFirstAnalyticsRequest": true,
+    "mode": "prioritized-artifact-discovery",
+    "promptOnFirstAnalyticsRequest": false,
+    "promptWhenAmbiguous": true,
     "scopeLifetime": "current-conversation",
     "maxResultsPerSearch": 50,
     "initialSearchTerms": [
-      "Finance",
-      "Warehouse",
-      "Retail"
+      "Finance Analytics"
     ],
+    "environmentPriority": [
+      "production",
+      "test",
+      "development"
+    ],
+    "environmentMarkers": {
+      "test": [
+        "TST",
+        "TEST"
+      ],
+      "development": [
+        "DEV",
+        "DEVELOPMENT"
+      ]
+    },
     "exhaustive": false
   },
   "domains": [
@@ -17,6 +31,8 @@
       "name": "finance",
       "displayName": "Finance",
       "sourceSystem": "Microsoft Business Central",
+      "availability": "confirmed",
+      "canonicalArtifactName": "Finance Analytics",
       "skill": "finance-analytics",
       "skillPath": "../skills/finance-analytics/SKILL.md",
       "discoveryTerms": [
@@ -45,6 +61,8 @@
       "name": "warehouse-operations",
       "displayName": "Warehouse Operations",
       "sourceSystem": "Manhattan SCALE",
+      "availability": "planned",
+      "canonicalArtifactName": null,
       "skill": "warehouse-operations-analytics",
       "skillPath": "../skills/warehouse-operations-analytics/SKILL.md",
       "discoveryTerms": [
@@ -71,6 +89,8 @@
       "name": "retail-operations",
       "displayName": "Retail Operations",
       "sourceSystem": "RMS",
+      "availability": "planned",
+      "canonicalArtifactName": null,
       "skill": "retail-operations-analytics",
       "skillPath": "../skills/retail-operations-analytics/SKILL.md",
       "discoveryTerms": [
