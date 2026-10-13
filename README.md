@@ -1,20 +1,36 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Dempsey Fabric IQ
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+This repository is the source for the Dempsey Fabric IQ Codex marketplace
+plugin. The plugin provides read-only business analytics over the configured
+Fabric IQ app for Business Central Finance, with planned workflows for Warehouse
+Operations and Retail Operations.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+## Install from GitHub
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+Add the GitHub repository as a Codex marketplace and install the plugin:
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+```powershell
+codex plugin marketplace add Dempsey-Fabric-Admin/Fabric-IQ --ref main
+codex plugin add dempsey-fabric-iq@dempsey-chatgpt
+```
+
+Start a new Codex chat after installation so the updated skills are loaded.
+
+To refresh the Git marketplace after a new release:
+
+```powershell
+codex plugin marketplace upgrade dempsey-chatgpt
+codex plugin add dempsey-fabric-iq@dempsey-chatgpt
+```
+
+## Development
+
+The Git-managed marketplace source is under `src/chatgpt`. Validate it before
+committing or publishing an update:
+
+```powershell
+python src/chatgpt/scripts/validate_plugins.py
+```
+
+Develop from a local clone. Push approved commits to Azure DevOps `develop` and
+GitHub `main`, then upgrade the Git marketplace installation.

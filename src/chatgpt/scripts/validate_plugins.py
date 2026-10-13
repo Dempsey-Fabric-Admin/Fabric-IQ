@@ -5,6 +5,7 @@ import re
 from pathlib import Path
 
 MARKETPLACE_ROOT = Path(__file__).resolve().parents[1]
+REPOSITORY_ROOT = MARKETPLACE_ROOT.parents[1]
 
 
 def contained(root, path):
@@ -107,13 +108,18 @@ def validate(plugin):
 
 
 def main():
-    marketplace = load_json(MARKETPLACE_ROOT / ".agents/plugins/marketplace.json")
-    assert len({p["name"] for p in marketplace["plugins"]}) == len(marketplace["plugins"])
-    for entry in marketplace["plugins"]:
-        assert entry["source"]["source"] == "local"
-        plugin = contained(MARKETPLACE_ROOT, entry["source"]["path"])
-        assert load_json(plugin / "plugin.json")["name"] == entry["name"]
-        validate(plugin)
+    validated = set()
+    for root in (MARKETPLACE_ROOT, REPOSITORY_ROOT):
+        marketplace = load_json(root / ".agents/plugins/marketplace.json")
+        assert marketplace["name"] == "dempsey-chatgpt"
+        assert len({p["name"] for p in marketplace["plugins"]}) == len(marketplace["plugins"])
+        for entry in marketplace["plugins"]:
+            assert entry["source"]["source"] == "local"
+            plugin = contained(root, entry["source"]["path"])
+            assert load_json(plugin / "plugin.json")["name"] == entry["name"]
+            if plugin not in validated:
+                validate(plugin)
+                validated.add(plugin)
 
 
 if __name__ == "__main__":
