@@ -6,6 +6,7 @@
   "plugins": [
     {
       "name": "dempsey-fabric-iq",
+      "pluginId": "Plugin_811b9a295ef081c7a43951f4d7b800f0",
       "source": {
         "source": "local",
         "path": "./src/chatgpt/plugins/dempsey-fabric-iq"
